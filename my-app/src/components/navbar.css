@@ -1,0 +1,28 @@
+.con{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(57, 132, 218);
+    padding: 14px 14px;
+}
+
+.con ul {
+    flex : 1;
+    list-style: none;
+    text-align: center;
+}
+ul li {
+    display: inline-block;
+    margin: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.navbar-links li a {
+    color: black; 
+    text-decoration: none;
+  }
+  
+.navbar-links li a:hover {
+    color : rgb(132, 0, 255); 
+}
