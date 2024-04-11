@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 const validator=require('validator');
-
+// created models
 const userSchema = new Schema({                   
     enrollment_no:{
         type : Number ,
@@ -37,7 +37,6 @@ const userSchema = new Schema({
         minlength: 5
     }
 });
-
 //creating a collection
 const User= new mongoose.model('User',userSchema);
 
