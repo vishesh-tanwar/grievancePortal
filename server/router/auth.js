@@ -4,9 +4,6 @@ const User = require("../model/userschema");
 //const sgMail = require('@sendgrid/mail');
 const bcrypt = require('bcrypt');
 
-//const API_KEY = "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";
-//sgMail.setApiKey(API_KEY);
-
 router.post("/register", async (req, res) => {
     const { enrollment_no, name, father_name, email, mobile, password } = req.body;
 
