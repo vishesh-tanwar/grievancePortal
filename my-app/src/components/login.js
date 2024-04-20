@@ -32,6 +32,8 @@ const Login = () => {
        window.alert("Invalid Credentials");
      }else{
       //dispatch({type:"USER",payload:true})
+      localStorage.setItem("authtoken",data.authtoken) 
+      console.log(localStorage.getItem("authtoken")) 
       window.alert("Login Successful");
       history("/");
      }
@@ -43,11 +45,11 @@ const Login = () => {
         <h1>Login</h1>
         <br></br>
         <form>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="email">Email Address</label>
             <input
               type="email"
-              class="form-control margin5"
+              className="form-control margin5"
               id="email"
               value={email}
               onChange={(e)=> setEmail(e.target.value)}
@@ -55,18 +57,18 @@ const Login = () => {
             />
            
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              class="form-control"
+              className="form-control"
               id="Password"
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
               placeholder="Password"
             />
           </div>
-          <button type="submit" class="btn btn-primary" onClick={loginUser}>
+          <button type="submit" className="btn btn-primary" onClick={loginUser}>
             Submit
           </button>
           

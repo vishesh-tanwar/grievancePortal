@@ -8,7 +8,8 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 import AdminLogin from "./components/adminlogin";
 import AdminGrievance from "./components/admingrievance";
-
+import AdminUpdate from "./components/adminupdate";
+import UserGrievance from "./components/usergrievance";
 function App() {
   return (
     <Router>
@@ -22,6 +23,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/admin-grievance" element={<AdminGrievance />} />
+          <Route path="/admin-grievance/admin-update" element={<AdminUpdate />} />
+          <Route path="/user-grievance" element={<UserGrievance />} />
         </Routes>
       </div>
     </Router>

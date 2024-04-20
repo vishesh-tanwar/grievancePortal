@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require("../model/userschema");
 //const sgMail = require('@sendgrid/mail');
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const jwtSecret = "thisismybvicamjwtokenforthelogin";
 
 router.post("/register", async (req, res) => {
     const { enrollment_no, name, father_name, email, mobile, password } = req.body;
@@ -101,8 +103,17 @@ router.post("/signin",async(req,res)=>{
       //will expire in 30 days (coverted to millisecond)
       //expires:new Date(Date.now()+25892000000)
     //});
+    const data = {
+        user : {
+            id:userLogin.id 
+        }
+    };
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 30); // 30 days from now
 
-    return res.status(200).json({message:"Login Succesful"})
+    // Generate JWT token with expiry date
+    const authtoken = jwt.sign(data, jwtSecret, { expiresIn: '30d' });  
+    return res.status(200).json({message:"Login Succesful",authtoken:authtoken})  
     }
     }
     //if user does not exist
@@ -114,6 +125,15 @@ router.post("/signin",async(req,res)=>{
       console.log(err);
   } 
 })
+            //  to check if the expiry date is working or not    
+// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYwODU3NTViNzIwZGUwMGRkN2NlYjM1In0sImlhdCI6MTcxMzU1MDExNSwiZXhwIjoxNzE2MTQyMTE1fQ.oFe8_JACHp-A5uVo5MNQVfbYp5CFAfCo-KWCll5Q9_w"; // Replace this with your actual JWT token
+
+// try {
+//     const decodedToken = jwt.decode(token);
+//     console.log(decodedToken);
+// } catch (error) {
+//     console.error('Error decoding token:', error.message);
+// }
 
 
 module.exports = router;
