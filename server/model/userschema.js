@@ -35,8 +35,50 @@ const userSchema = new Schema({
         type : String ,
         required : true, 
         minlength: 5
-    }
+    },
+    grievances:[
+        {   
+            name:{
+                type:String,
+                required:true
+            },
+            email:{
+                type:String,
+                required:true
+            },
+            enrollment_no:{
+                type:Number,
+                required:true
+            },
+            grievance:{
+            type:String,
+            required:true
+            },
+            status:{
+                type:String,
+                default:"Not seen"
+            },
+            feedback:{
+                type:String,
+                default:"NA"
+            },
+            date:{
+                type:Date,
+                default:Date.now
+            }
+        } 
+    ]
 });
+//store the grievance
+userSchema.methods.addGrievance=async function(name,email,enrollment_no,grievance){
+    try{
+      this.grievances=this.grievances.concat({name,email,enrollment_no,grievance});
+      await this.save();
+      return this.messages;
+    }catch(err){
+        console.log(err);
+    }
+}
 //creating a collection
 const User= new mongoose.model('User',userSchema);
 

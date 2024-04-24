@@ -35,7 +35,7 @@ const Login = () => {
       localStorage.setItem("authtoken",data.authtoken) 
       console.log(localStorage.getItem("authtoken")) 
       window.alert("Login Successful");
-      history("/");
+      history("/user-grievance");
      }
   }
 
@@ -55,7 +55,7 @@ const Login = () => {
               onChange={(e)=> setEmail(e.target.value)}
               placeholder="Enter email"
             />
-           
+          
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>

@@ -135,5 +135,26 @@ router.post("/signin",async(req,res)=>{
 //     console.error('Error decoding token:', error.message);
 // }
 
+router.post("/grievance", async (req, res) => {
+    try {
+        const { name, email, enrollment_no, grievance } = req.body;
+
+        if (!name || !email || !enrollment_no || !grievance) {
+            console.log("Empty data in grievance portal");
+            return res.status(400).json({ error: "Please fill all the details" });
+        }
+
+        const userContact = await User.findOne({ enrollment_no: enrollment_no });
+        if (userContact) {
+            const userMsg = await userContact.addGrievance(name, email, enrollment_no, grievance);
+            await userContact.save();
+
+            return res.status(200).json({ message: "Grievance Filed Successfully" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 module.exports = router;

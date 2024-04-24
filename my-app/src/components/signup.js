@@ -35,7 +35,7 @@ const Signup = () => {
       headers:{
         "Content-Type":"application/json",
         'Accept': 'application/json'
-      },
+      }, 
       credentials:"same-origin",
       body:JSON.stringify({
         enrollment_no,name,father_name,email,mobile,password
