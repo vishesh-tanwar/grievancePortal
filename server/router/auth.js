@@ -104,7 +104,7 @@ router.post("/signin",async(req,res)=>{
       //will expire in 30 days (coverted to millisecond)
       //expires:new Date(Date.now()+25892000000)
     //});
-                                                        // update today 
+
     const data = {
         user : {
             id:userLogin.id, 
@@ -161,8 +161,6 @@ router.post("/grievance", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-
-                                                                        // update today 
 
 router.get('/getdata',authenticate , async (req, res) => {  
     try {  
