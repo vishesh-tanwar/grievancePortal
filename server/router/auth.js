@@ -4,6 +4,7 @@ const User = require("../model/userschema");
 //const sgMail = require('@sendgrid/mail');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
+const authenticate=require('../middleware/authenticate');
 const jwtSecret = "thisismybvicamjwtokenforthelogin";
 
 router.post("/register", async (req, res) => {
@@ -103,9 +104,13 @@ router.post("/signin",async(req,res)=>{
       //will expire in 30 days (coverted to millisecond)
       //expires:new Date(Date.now()+25892000000)
     //});
+                                                        // update today 
     const data = {
         user : {
-            id:userLogin.id 
+            id:userLogin.id, 
+            name: userLogin.name, // Include other user data as needed
+            email: userLogin.email,
+            enrollment_no: userLogin.enrollment_no
         }
     };
     const expiryDate = new Date();
@@ -145,7 +150,7 @@ router.post("/grievance", async (req, res) => {
         }
 
         const userContact = await User.findOne({ enrollment_no: enrollment_no });
-        if (userContact) {
+        if (userContact) { 
             const userMsg = await userContact.addGrievance(name, email, enrollment_no, grievance);
             await userContact.save();
 
@@ -153,6 +158,20 @@ router.post("/grievance", async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+                                                                        // update today 
+
+router.get('/getdata',authenticate , async (req, res) => {  
+    try {  
+        const token = req.header("Authorization");
+        console.log("Received token:", token);
+        const userdata = req.isverified ; 
+        console.log("decoded",userdata); 
+        res.status(200).json({userdata});   
+    } catch (e) {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
