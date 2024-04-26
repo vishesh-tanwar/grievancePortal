@@ -14,13 +14,13 @@ const Signup = () => {
   });
   let name, value;
   const handleInputs = (event) => {
-    //console.log(event);
+   
     name = event.target.name;
     value = event.target.value;
 
     setUser({ ...user, [name]: value });
   };
-  //we will use fetch API to post data which returns a promise
+ 
   const PostData=async(event)=>{
     event.preventDefault();
     const {enrollment_no,name,father_name,email,mobile,password} = user;
@@ -30,7 +30,7 @@ const Signup = () => {
       return;
     }
     const res= await fetch("http://localhost:5000/register",{
-      //these key-value pair are similar to data or elements shown on postman while posting the data
+     
       "method":"POST",
       headers:{
         "Content-Type":"application/json",
