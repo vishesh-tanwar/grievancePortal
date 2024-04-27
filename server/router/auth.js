@@ -104,7 +104,7 @@ router.post("/signin",async(req,res)=>{
       //will expire in 30 days (coverted to millisecond)
       //expires:new Date(Date.now()+25892000000)
     //});
-                                                        // update today 
+                                                    
     const data = {
         user : {
             id:userLogin.id, 
@@ -162,8 +162,6 @@ router.post("/grievance", async (req, res) => {
     }
 });
 
-                                                                        // update today 
-
 router.get('/getdata',authenticate , async (req, res) => {  
     try {  
         const token = req.header("Authorization");
@@ -172,6 +170,24 @@ router.get('/getdata',authenticate , async (req, res) => {
         console.log("decoded",userdata); 
         res.status(200).json({userdata});   
     } catch (e) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Route to fetch all grievance data
+router.get('/grievancedata', async (req, res) => {
+    try {
+        // Fetch all users along with their grievances
+        const users = await User.find({}, { grievances: 1 }).exec();
+        
+        // Extract and combine all grievances from different users
+        const allGrievances = users.reduce((acc, user) => {
+            return acc.concat(user.grievances);
+        }, []);
+        console.log(allGrievances);
+        res.status(200).json(allGrievances);
+    } catch (error) {
+        console.error("Error fetching grievances:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });

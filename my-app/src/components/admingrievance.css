@@ -1,0 +1,9 @@
+.Gtable {
+    width: 100%;
+    text-align: center; /* Align all content in the table center */
+  }
+  
+  .Gtable th,
+  .Gtable td {
+    text-align: center; /* Align content in table cells center */
+  }
