@@ -28,10 +28,10 @@ const Login = () => {
       const data = await res.json();
       localStorage.setItem("authtoken", data.authtoken);
       console.log(localStorage.getItem("authtoken"))
-      history("/user-grievance"); // Redirect after successful login
+      history("/user-grievance"); 
     } catch (error) {
       console.error("Login failed:", error.message);
-      alert(error.message); // Display error message to user
+      alert(error.message); 
     }
   }
 

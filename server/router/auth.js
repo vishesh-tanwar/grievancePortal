@@ -104,7 +104,11 @@ router.post("/signin",async(req,res)=>{
       //will expire in 30 days (coverted to millisecond)
       //expires:new Date(Date.now()+25892000000)
     //});
+<<<<<<< HEAD
                                                     
+=======
+
+>>>>>>> abc92e8b83ba7b966b255a71d389613f84890fab
     const data = {
         user : {
             id:userLogin.id, 
@@ -174,6 +178,7 @@ router.get('/getdata',authenticate , async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
 // Route to fetch all grievance data
 router.get('/grievancedata', async (req, res) => {
     try {
@@ -193,3 +198,6 @@ router.get('/grievancedata', async (req, res) => {
 });
 
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> abc92e8b83ba7b966b255a71d389613f84890fab
