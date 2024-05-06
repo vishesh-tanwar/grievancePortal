@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
         return res.status(400).json({ error: "Invalid email format" });
     }
@@ -104,11 +104,6 @@ router.post("/signin",async(req,res)=>{
       //will expire in 30 days (coverted to millisecond)
       //expires:new Date(Date.now()+25892000000)
     //});
-<<<<<<< HEAD
-                                                    
-=======
-
->>>>>>> abc92e8b83ba7b966b255a71d389613f84890fab
     const data = {
         user : {
             id:userLogin.id, 
@@ -178,7 +173,7 @@ router.get('/getdata',authenticate , async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
+
 // Route to fetch all grievance data
 router.get('/grievancedata', async (req, res) => {
     try {
@@ -198,6 +193,6 @@ router.get('/grievancedata', async (req, res) => {
 });
 
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> abc92e8b83ba7b966b255a71d389613f84890fab
+
+
+

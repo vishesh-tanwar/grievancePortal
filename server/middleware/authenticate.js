@@ -13,12 +13,11 @@ const authenticate=async(req,res,next)=>{
         const isverified = jwt.verify(jwttoken, "thisismybvicamjwtokenforthelogin");  
         console.log("deploy :",isverified);
         //const userData = await User.findOne({enrollment_no:isverified.enrollment_no}) ;    // error in this line 
-<<<<<<< HEAD
+
         //console.log(userData) ; 
-=======
+
         //console.log(userData) ;
         
->>>>>>> abc92e8b83ba7b966b255a71d389613f84890fab
         req.isverified=isverified;
         req.token=token 
 
@@ -29,9 +28,5 @@ const authenticate=async(req,res,next)=>{
     }
 };
 
-<<<<<<< HEAD
-module.exports=authenticate;
-=======
 module.exports=authenticate;
 
->>>>>>> abc92e8b83ba7b966b255a71d389613f84890fab
