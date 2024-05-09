@@ -10,6 +10,8 @@ import AdminLogin from "./components/adminlogin";
 import AdminGrievance from "./components/admingrievance";
 import AdminUpdate from "./components/adminupdate";
 import UserGrievance from "./components/usergrievance";
+import UserProfile from "./components/userprofile";
+
 function App() {
   return (
     <Router>
@@ -25,6 +27,7 @@ function App() {
           <Route path="/admin-grievance" element={<AdminGrievance />} />
           <Route path="/admin-grievance/admin-update" element={<AdminUpdate />} />
           <Route path="/user-grievance" element={<UserGrievance />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </div>
     </Router>

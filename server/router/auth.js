@@ -86,8 +86,8 @@ router.post("/signin",async(req,res)=>{
 
     //if user exists
     if(userLogin){
-     //trying to compare the passwords
-     const isMatch=await bcrypt.compare(password,userLogin.password);
+    //trying to compare the passwords
+    const isMatch=await bcrypt.compare(password,userLogin.password);
      //(password==userLogin.password)
      //console.log(`isMatch= ${isMatch}`);
     
@@ -109,7 +109,10 @@ router.post("/signin",async(req,res)=>{
             id:userLogin.id, 
             name: userLogin.name, // Include other user data as needed
             email: userLogin.email,
-            enrollment_no: userLogin.enrollment_no
+            enrollment_no: userLogin.enrollment_no,
+            mobile : userLogin.mobile,
+            father_name : userLogin.father_name,
+            grievances : userLogin.grievances.map(({ grievance, status, feedback, date }) => ({ grievance, status, feedback, date }))  
         }
     };
     const expiryDate = new Date();
@@ -191,6 +194,8 @@ router.get('/grievancedata', async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+
 
 module.exports = router;
 
