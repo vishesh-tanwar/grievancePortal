@@ -25,7 +25,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/admin-grievance" element={<AdminGrievance />} />
-          <Route path="/admin-grievance/admin-update" element={<AdminUpdate />} />
+          <Route path="/update/:id" element={<AdminUpdate />} /> 
           <Route path="/user-grievance" element={<UserGrievance />} />
           <Route path="/user-profile" element={<UserProfile />} />
         </Routes>

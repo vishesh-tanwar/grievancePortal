@@ -60,7 +60,7 @@ const userSchema = new Schema({
             },
             feedback:{
                 type:String,
-                default:"NA"
+                default:""
             },
             date:{
                 type:Date,

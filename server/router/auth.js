@@ -88,22 +88,11 @@ router.post("/signin",async(req,res)=>{
     if(userLogin){
     //trying to compare the passwords
     const isMatch=await bcrypt.compare(password,userLogin.password);
-     //(password==userLogin.password)
-     //console.log(`isMatch= ${isMatch}`);
-    
-     //creating a token
-    //const token=await userLogin.generateAuthToken();
 
     if(!isMatch){
       return res.status(400).json({ error:"Invalid Credentials"})
     }
     else{
-    //storing token in a cookie
-    //res.cookie(name,values)
-    //res.cookie("jwtoken",token,{
-      //will expire in 30 days (coverted to millisecond)
-      //expires:new Date(Date.now()+25892000000)
-    //});
     const data = {
         user : {
             id:userLogin.id, 
@@ -132,15 +121,6 @@ router.post("/signin",async(req,res)=>{
       console.log(err);
   } 
 })
-            //  to check if the expiry date is working or not    
-// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYwODU3NTViNzIwZGUwMGRkN2NlYjM1In0sImlhdCI6MTcxMzU1MDExNSwiZXhwIjoxNzE2MTQyMTE1fQ.oFe8_JACHp-A5uVo5MNQVfbYp5CFAfCo-KWCll5Q9_w"; // Replace this with your actual JWT token
-
-// try {
-//     const decodedToken = jwt.decode(token);
-//     console.log(decodedToken);
-// } catch (error) {
-//     console.error('Error decoding token:', error.message);
-// }
 
 router.post("/grievance", async (req, res) => {
     try {
@@ -176,7 +156,6 @@ router.get('/getdata',authenticate , async (req, res) => {
     }
 });
 
-
 // Route to fetch all grievance data
 router.get('/grievancedata', async (req, res) => {
     try {
@@ -195,9 +174,78 @@ router.get('/grievancedata', async (req, res) => {
     }
 });
 
+router.get('/grievance/:grievanceId', async (req, res) => {
+    const { grievanceId } = req.params;
+
+    try {
+        const user = await User.findOne({ 'grievances._id': grievanceId }, { 'grievances.$': 1 });
+        
+        if (!user || user.grievances.length === 0) {
+            return res.status(404).json({ message: 'Grievance not found' });
+        }
+
+        res.json(user.grievances[0]);
+    } catch (error) {
+        res.status(400).json({ message: 'Error fetching grievance', error });
+    }
+});
+
+router.put('/update/:grievanceId', async (req, res) => {
+    const { grievanceId } = req.params;
+    const { status, feedback } = req.body;
+
+    try {
+        // Find and update the specific grievance
+        const user = await User.findOneAndUpdate(
+            { 'grievances._id': grievanceId },
+            {
+                $set: {
+                    'grievances.$.status': status,
+                    'grievances.$.feedback': feedback
+                }
+            },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'Grievance not found' });
+        }
+
+        // Find the updated grievance
+        const updatedGrievance = user.grievances.id(grievanceId);
+        res.json(updatedGrievance);
+    } catch (error) {
+        console.error('Error updating grievance:', error);
+        res.status(400).json({ message: 'Error updating grievance', error });
+    }
+});
+
+
+router.delete('/delete/:grievanceId', async (req, res) => {
+    const { grievanceId } = req.params;
+
+    try {
+        // Find the user containing the specific grievance and pull it from the grievances array
+        const user = await User.findOneAndUpdate( 
+            { 'grievances._id': grievanceId },
+            { $pull: { grievances: { _id: grievanceId } } },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'Grievance not found' });
+        }
+
+        res.json({ message: 'Grievance deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting grievance:', error);
+        res.status(400).json({ message: 'Error deleting grievance', error });
+    }
+});
 
 
 module.exports = router;
+
 
 
 
