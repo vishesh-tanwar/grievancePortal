@@ -2,10 +2,28 @@ const express = require("express");
 const router = express.Router();
 const User = require("../model/userschema");
 //const sgMail = require('@sendgrid/mail');
+const sendEmail = require('../config/emailConfig'); 
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-const authenticate=require('../middleware/authenticate');
+const authenticate =require('../middleware/authenticate');
 const jwtSecret = "thisismybvicamjwtokenforthelogin";
+
+// new /////////////////////
+const multer = require("multer");
+
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, './uploads');
+//     },
+//     filename: function(req,file,cb){
+//         cb(null,Date.now() + '-' + file.originalname);
+//     }
+// });
+const upload = multer({ dest: "uploads/"}); 
+
+router.post("/uploads",upload.single("image"),(req,res) => {
+    console.log(req.file);
+})
 
 router.post("/register", async (req, res) => {
     const { enrollment_no, name, father_name, email, mobile, password } = req.body;
@@ -48,18 +66,7 @@ router.post("/register", async (req, res) => {
         // Save the user to the database
         await user.save();
 
-        /*
-        // Send registration email
-        const message = {
-            to: email,
-            from: 'potssteve187@gmail.com',
-            name: "Grievance Portal",
-            subject: 'Successfully Registered!!',
-            text: `Congratulations ${name}, You have been successfully registered on BVICAM Grievance Portal. Kindly login. Thank you.`
-        };
-
-        // Sending email
-        await sgMail.send(message); */
+        await sendEmail(email, 'Successfully Registered!!', `Hello ${name}, You have been successfully registered on BVICAM Grievance Portal. Kindly login. Thank you.`);
 
         res.status(200).json({ message: "Registration Successful" });
     } catch (err) {
@@ -124,7 +131,7 @@ router.post("/signin",async(req,res)=>{
 
 router.post("/grievance", async (req, res) => {
     try {
-        const { name, email, enrollment_no, grievance } = req.body;
+        const { name, email, enrollment_no, grievance} = req.body;
 
         if (!name || !email || !enrollment_no || !grievance) {
             console.log("Empty data in grievance portal");
@@ -133,8 +140,10 @@ router.post("/grievance", async (req, res) => {
 
         const userContact = await User.findOne({ enrollment_no: enrollment_no });
         if (userContact) { 
-            const userMsg = await userContact.addGrievance(name, email, enrollment_no, grievance);
+            const userMsg = await userContact.addGrievance(name, email, enrollment_no, grievance); 
             await userContact.save();
+
+            await sendEmail(email, 'Grievance Filed Successfully', `Hello ${name}, Your grievance has been filed successfully. We will inform you when there is a response.`);
 
             return res.status(200).json({ message: "Grievance Filed Successfully" });
         }
@@ -214,12 +223,12 @@ router.put('/update/:grievanceId', async (req, res) => {
         // Find the updated grievance
         const updatedGrievance = user.grievances.id(grievanceId);
         res.json(updatedGrievance);
+        await sendEmail(user.email, 'Grievance Status Updated', `Hello ${user.name}, Your grievance status has been updated. Please check the BVICAM website for details.`);
     } catch (error) {
         console.error('Error updating grievance:', error);
         res.status(400).json({ message: 'Error updating grievance', error });
     }
 });
-
 
 router.delete('/delete/:grievanceId', async (req, res) => {
     const { grievanceId } = req.params;
@@ -242,7 +251,6 @@ router.delete('/delete/:grievanceId', async (req, res) => {
         res.status(400).json({ message: 'Error deleting grievance', error });
     }
 });
-
 
 module.exports = router;
 

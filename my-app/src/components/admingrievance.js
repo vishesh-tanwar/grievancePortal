@@ -74,7 +74,7 @@ const Admingrievance = () => {
               <td>{grievance.enrollment_no}</td>
               <td>{grievance.email}</td>
               <td>{grievance.grievance}</td>
-              <td>{grievance.status}</td>
+              <td className={grievance.status === "Not seen" ? "red-text" : "green-text"}>{grievance.status}</td>
               <td>{grievance.feedback}</td>
               <td>{new Date(grievance.date).toLocaleDateString()}</td>
               <td>
@@ -87,8 +87,6 @@ const Admingrievance = () => {
       </table>
       <Link to="/login" className="btn btn-outline-warning mx-4 mb-1 update">Logout as Admin</Link>
       <br />
-      <br />
-      <p className='small mx-4' style={{ "fontStyle": "italic" }}>Note: Copy the grievance ID to update.</p>
     </>
   );
 };

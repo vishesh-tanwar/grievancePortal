@@ -54,6 +54,10 @@ const userSchema = new Schema({
             type:String,
             required:true
             },
+            image : {
+                type : String,
+                default : null
+            },
             status:{
                 type:String,
                 default:"Not seen"
@@ -70,9 +74,9 @@ const userSchema = new Schema({
     ]
 });
 //store the grievance
-userSchema.methods.addGrievance=async function(name,email,enrollment_no,grievance){
+userSchema.methods.addGrievance=async function(name,email,enrollment_no,grievance,imagepath){
     try{
-      this.grievances=this.grievances.concat({name,email,enrollment_no,grievance});
+      this.grievances=this.grievances.concat({name,email,enrollment_no,grievance,image:imagepath });
       await this.save();
       return this.messages;
     }catch(err){

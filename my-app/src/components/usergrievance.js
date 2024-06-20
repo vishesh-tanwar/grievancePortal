@@ -2,6 +2,8 @@ import React, { useEffect , useState } from 'react';
 
 const UserGrievance = () => {
     const [userData, setUserData] = useState({ name: "", email: "", enrollment_no: "", grievance: "" });
+    // new 
+    //const [file, setFile] = useState(null); 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,6 +47,10 @@ const UserGrievance = () => {
         setUserData({ ...userData, [name]: value });
     };
     
+    // const handleFileChange = (event) => {
+    //     setFile(event.target.files[0]);
+    // };
+
     const fileGrievance = async (event) => {
         event.preventDefault();
 
@@ -71,6 +77,7 @@ const UserGrievance = () => {
         } else {
             alert("Grievance Filed Successfully!! We'll inform you when there will be a response");
             setUserData({ ...userData, grievance: "" });
+            //setFile(null) ;
         }
     };
 
@@ -78,7 +85,7 @@ const UserGrievance = () => {
         <div className="box">
             <h1>File Grievance</h1>
             <br></br>
-            <form className="row g-3">
+            <form className="row g-3" action='/uploads' method='POST' encType='multipart/form-data'>
                 <div className="col-md-6">
                     <label htmlFor="enrollment_no" className="form-label">
                         Enrollment Number
@@ -105,7 +112,7 @@ const UserGrievance = () => {
                 </div>
                 <br></br>
                 <div className="col-md-6">
-                    <input type="file" className="form-control" id="customFile" />
+                    <input type="file" className="form-control" id="customFile" name="image" />  
                     <label htmlFor="customFile" id="customFileLabel">Choose file</label>
                 </div> 
                 <div className="col-12">
@@ -119,3 +126,4 @@ const UserGrievance = () => {
 };
 
 export default UserGrievance;
+
