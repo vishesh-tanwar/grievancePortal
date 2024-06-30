@@ -1,28 +1,68 @@
-.con{
+.con {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgb(57, 132, 218);
     padding: 14px 14px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; 
 }
 
 .con ul {
-    flex : 1;
+    flex: 1;
     list-style: none;
     text-align: center;
 }
+
 ul li {
     display: inline-block;
     margin: 10px 20px;
     font-size: 20px;
     cursor: pointer;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
 }
+
 .navbar-links li a {
-    color: black; 
+    color: white; 
     text-decoration: none;
-  }
-  
-.navbar-links li a:hover {
-    color : rgb(132, 0, 255); 
 }
+
+.navbar-links li a:hover {
+    color: rgb(132, 0, 255);
+}
+
+@media (min-width: 319px) {
+    ul li  {
+        font-size: 10px;
+    }
+  }
+
+  @media (min-width: 375px) {
+    ul li  {
+        font-size: 10px;
+    }
+  }
+  @media (min-width: 425px) {
+    ul li  {
+        font-size: 13px;
+    }
+  }
+  @media (min-width: 768px) {
+    ul li  {
+        font-size: 14px;
+    }
+  }
+  @media (min-width: 1024px) {
+    ul li  {
+        font-size: 16px;
+    }
+  }
+  @media (min-width: 1440px) {
+    ul li  {
+        font-size: 18px;
+    }
+  }

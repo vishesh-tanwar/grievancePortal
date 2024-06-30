@@ -20,9 +20,9 @@ function Navbar() {
       <div className="con">
         <div className="nav-section">
           <ul className="navbar-links">
-            <li>
+            <li> 
               <Link to="/">Home</Link>
-            </li>
+            </li> 
             {isLoggedIn ? (
               <>
                 <li>

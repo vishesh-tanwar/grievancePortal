@@ -1,0 +1,77 @@
+ .all {
+    /* background-image: url('https://static.vecteezy.com/system/resources/previews/001/911/438/non_2x/light-brown-texture-background-free-photo.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+}
+
+.headingandimage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 50px 0;
+}
+
+.text {
+    max-width: 50%;
+    text-align: center;
+}
+
+.text img {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.text h1 {
+    margin: 20px;
+    padding: 0;
+    font-size: 2em;
+}
+
+.text p {
+    margin-top: 10px;
+    font-size: 1em;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.howtofile {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 50px 0;
+    padding: 20px;
+}
+
+.howtofile .photo {
+    width: 20%;
+    margin-right: 0px;
+    padding-left: 30px;
+    padding-top: 10px;
+}
+
+.howtofile-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+}
+
+.howtofile h1 {
+    font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.howtofile li {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.howtofile .text2 {
+    border: 2px solid black;
+    border-radius: 5%;
+    padding: 10px 10px 10px 25px;
+}

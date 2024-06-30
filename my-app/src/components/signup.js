@@ -53,10 +53,10 @@ const Signup = () => {
 
   return (
     <div className="box">
-      <h1>Registration</h1>
-      <br />
-      <form className="row g-3">
-      <div className="col-md-6">
+      <form className="form">
+        <h1>Registration</h1>
+        <br/> 
+        <div className="col-md-6">
            <label htmlFor="enrollment_no" className="form-label">
              Enrollment Number 
            </label>
@@ -93,18 +93,17 @@ const Signup = () => {
            <input type="password" className="form-control" name="password" id="password" value={user.password} onChange={handleInputs} />
          </div>
          <div className="col-12">
-           <button type="submit" name="register" id="register" onClick={PostData} className="btn btn-primary">
+           <button type="submit" name="register" id="register" onClick={PostData} className="btn">
              Register
            </button>
          </div>
+         <div className="link">
+        <NavLink to="/login" className="link">Already Registered?</NavLink>
+          </div>
       </form>
       <br />
-      <div className="link">
-        <NavLink to="/login" className="signup-image-link">Already Registered?</NavLink>
-      </div>
     </div>
   );
 };
 
 export default Signup;
-
